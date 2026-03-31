@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Match Político 🗳️ — Elecciones Perú 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08090C;--surface:#0F1117;--surface2:#161923;--border:#1F2333;--text:#E4E7F1;--text-dim:#6B7194;--izq:#4A90D9;--centro:#8B6FD4;--derecha:#D95050;--accent:#4AEDC4;--accent2:#D4A853;--orange:#E8853A}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::after{content:'';position:fixed;inset:0;opacity:.025;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:9999}
+.container{max-width:720px;margin:0 auto;padding:32px 20px 80px;position:relative}
+.screen{display:none}.screen.active{display:block}
+.intro-glow{position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(74,237,196,.06) 0%,transparent 70%);pointer-events:none}
+.intro-header{text-align:center;padding-top:80px;animation:introIn 1s ease-out}
+.intro-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);border:1px solid rgba(74,237,196,.2);padding:8px 20px;border-radius:24px;margin-bottom:28px;background:rgba(74,237,196,.04)}
+.intro-tag::before{content:'🗳️';font-size:14px}
+.intro-header h1{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(40px,7vw,64px);line-height:1.05;margin-bottom:20px;letter-spacing:-1px}
+.intro-header h1 em{font-style:italic;color:var(--accent)}
+.intro-header p{color:var(--text-dim);font-size:16px;line-height:1.6;max-width:480px;margin:0 auto 40px;font-weight:300}
+.intro-meta{display:flex;justify-content:center;gap:32px;margin-bottom:48px;flex-wrap:wrap}
+.intro-meta-item{text-align:center}
+.intro-meta-item .val{font-size:22px;font-weight:700;color:var(--text)}
+.intro-meta-item .lbl{font-size:11px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-top:2px}
+.btn-start{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--bg);border:none;padding:16px 40px;border-radius:60px;font-family:'Outfit',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;letter-spacing:.5px}
+.btn-start:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(74,237,196,.25)}
+.btn-start::after{content:'→';font-size:18px;transition:transform .3s}
+.btn-start:hover::after{transform:translateX(4px)}
+.intro-disclaimer{margin-top:32px;font-size:12px;color:var(--text-dim);opacity:.6;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.5}
+.quiz-progress-wrap{position:sticky;top:0;z-index:100;background:rgba(8,9,12,.9);backdrop-filter:blur(12px);padding:16px 0;margin-bottom:32px;border-bottom:1px solid var(--border)}
+.quiz-progress-bar{width:100%;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-bottom:8px}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+.quiz-progress-text{display:flex;justify-content:space-between;font-size:12px;color:var(--text-dim);font-weight:500}
+.question-card{animation:cardIn .5s ease-out}
+.question-number{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.question-topic{font-family:'Instrument Serif',serif;font-size:13px;color:var(--text-dim);margin-bottom:8px;font-style:italic}
+.question-text{font-size:clamp(20px,4vw,28px);font-weight:600;line-height:1.35;margin-bottom:32px;letter-spacing:-.3px}
+.options{display:flex;flex-direction:column;gap:10px}
+.option-btn{display:flex;align-items:flex-start;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 20px;cursor:pointer;transition:all .25s;text-align:left;font-family:'Outfit',sans-serif;color:var(--text);font-size:15px;line-height:1.45;font-weight:400}
+.option-btn:hover{border-color:rgba(74,237,196,.35);background:rgba(74,237,196,.04);transform:translateX(4px)}
+.option-btn .opt-key{flex-shrink:0;width:28px;height:28px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--text-dim);transition:all .25s}
+.option-btn:hover .opt-key{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.option-btn.selected{border-color:var(--accent);background:rgba(74,237,196,.06)}
+.option-btn.selected .opt-key{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.results-header{text-align:center;padding-top:40px;margin-bottom:40px;animation:introIn .8s ease-out}
+.results-header h2{font-family:'Instrument Serif',serif;font-size:clamp(32px,5vw,48px);font-weight:400;margin-bottom:8px}
+.results-header .profile-label{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.results-header .profile-desc{color:var(--text-dim);font-size:14px;line-height:1.5;max-width:500px;margin:0 auto}
+.spectrum-section{margin-bottom:40px;animation:cardIn .6s ease-out .1s both}
+.spectrum-title{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-bottom:14px}
+.spectrum-track{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--izq) 0%,var(--centro) 50%,var(--derecha) 100%);position:relative;margin-bottom:10px}
+.spectrum-dot{position:absolute;top:50%;transform:translate(-50%,-50%);width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 16px rgba(74,237,196,.5),0 0 0 4px rgba(74,237,196,.15);transition:left .8s cubic-bezier(.4,0,.2,1)}
+.spectrum-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;font-weight:600}
+.dims-grid{display:grid;gap:12px;margin-bottom:40px;animation:cardIn .6s ease-out .2s both}
+.dim-row{display:flex;align-items:center;gap:12px}
+.dim-label{width:130px;flex-shrink:0;font-size:12px;font-weight:600;color:var(--text-dim);text-align:right}
+.dim-bar-bg{flex:1;height:6px;background:var(--surface2);border-radius:3px;overflow:hidden}
+.dim-bar-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.4,0,.2,1)}
+.dim-val{width:36px;font-size:12px;font-weight:700;color:var(--text)}
+.cand-section{animation:cardIn .6s ease-out .35s both;margin-bottom:32px}
+.cand-section-title{font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.cand-table{width:100%;border-collapse:collapse}
+.cand-table th{text-align:left;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);padding:8px 12px;border-bottom:1px solid var(--border)}
+.cand-table td{padding:10px 12px;border-bottom:1px solid rgba(31,35,51,.5);font-size:14px;vertical-align:middle}
+.cand-table tr:last-child td{border-bottom:none}
+.cand-table tr{transition:background .2s}
+.cand-table tr:hover{background:rgba(74,237,196,.03)}
+.cand-name-cell{font-weight:600}
+.cand-party-cell{color:var(--text-dim);font-size:13px}
+.plan-link{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:13px;font-weight:600;padding:6px 14px;border:1px solid rgba(74,237,196,.25);border-radius:8px;transition:all .2s;white-space:nowrap}
+.plan-link:hover{background:rgba(74,237,196,.1);border-color:var(--accent)}
+.plan-link svg{width:14px;height:14px}
+.plan-na{color:var(--text-dim);font-size:12px;opacity:.5}
+.actions{display:flex;gap:12px;justify-content:center;margin-top:40px;animation:cardIn .6s ease-out .5s both;flex-wrap:wrap}
+.btn-action{padding:14px 28px;border-radius:50px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;border:none}
+.btn-primary{background:var(--accent);color:var(--bg)}
+.btn-primary:hover{box-shadow:0 6px 24px rgba(74,237,196,.25);transform:translateY(-2px)}
+.btn-secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{border-color:var(--accent)}
+.disclaimer-footer{text-align:center;margin-top:40px;font-size:11px;color:var(--text-dim);opacity:.5;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto}
+.disclaimer-footer a{color:var(--accent);text-decoration:none}
+@keyframes introIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.cand-table td,.cand-table th{padding:8px 6px}.dim-label{width:100px;font-size:11px}}
+
+.brand-badge{display:flex;align-items:center;justify-content:center;margin-top:28px;opacity:.5;transition:opacity .3s}
+.brand-badge:hover{opacity:.9}
+.brand-badge-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
+.brand-badge img{height:32px;width:auto}
+.brand-badge-contact{font-size:11px;color:var(--text-dim);letter-spacing:.3px}
+.brand-badge-contact a{color:var(--accent);text-decoration:none;transition:opacity .2s}
+.brand-badge-contact a:hover{opacity:.7}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="screen active" id="intro-screen">
+  <div class="intro-glow"></div>
+  <div class="intro-header">
+    <div class="intro-tag">Elecciones Perú 2026</div>
+    <h1>Tu match <em>político</em></h1>
+    <p>Responde 10 preguntas sobre los temas que más importan y descubre tu perfil ideológico. Te mostraremos los candidatos que comparten tu visión.</p>
+    <div class="intro-meta">
+      <div class="intro-meta-item"><div class="val">10</div><div class="lbl">Preguntas</div></div>
+      <div class="intro-meta-item"><div class="val">~2 min</div><div class="lbl">Duración</div></div>
+      <div class="intro-meta-item"><div class="val">35</div><div class="lbl">Candidatos</div></div>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Comenzar test</button>
+    <div class="intro-disclaimer">Este test es informativo y no constituye una recomendación de voto. Las clasificaciones son aproximaciones basadas en propuestas públicas y planes de gobierno registrados ante el JNE.</div>
+    <div class="brand-badge"><div class="brand-badge-inner"><img src="data:image/png;base64,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" alt="Abyss Corp"><span class="brand-badge-contact">Contact: <a href="mailto:helloabysscorp@gmail.com">helloabysscorp@gmail.com</a></span></div></div>
+    
+  </div>
+</div>
+
+<div class="screen" id="quiz-screen">
+  <div class="quiz-progress-wrap">
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="progress-fill"></div></div>
+    <div class="quiz-progress-text"><span id="progress-label">Pregunta 1 de 10</span><span id="progress-pct">0%</span></div>
+  </div>
+  <div id="question-container"></div>
+</div>
+
+<div class="screen" id="results-screen">
+  <div class="results-header">
+    <h2>Tu perfil ideológico</h2>
+    <div class="profile-label" id="profile-label"></div>
+    <div class="profile-desc" id="profile-desc"></div>
+  </div>
+  <div class="spectrum-section">
+    <div class="spectrum-title">Tu posición en el espectro</div>
+    <div class="spectrum-track"><div class="spectrum-dot" id="spectrum-dot"></div></div>
+    <div class="spectrum-labels"><span>Izquierda</span><span>Centro</span><span>Derecha</span></div>
+  </div>
+  <div class="dims-grid" id="dims-grid"></div>
+  <div id="candidates-section"></div>
+  <div class="actions">
+    <button class="btn-action btn-primary" onclick="shareResults()">Compartir resultado</button>
+    <button class="btn-action btn-secondary" onclick="restartQuiz()">Volver a empezar</button>
+  </div>
+  <div class="disclaimer-footer">Este test es un ejercicio informativo. Las clasificaciones son aproximaciones y no representan un respaldo a ningún candidato. Infórmate: <a href="https://votoinformado.jne.gob.pe/presidente-vicepresidentes" target="_blank">votoinformado.jne.gob.pe</a></div>
+  <div class="brand-badge"><div class="brand-badge-inner"><img src="data:image/png;base64,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" alt="Abyss Corp"><span class="brand-badge-contact">Contact: <a href="mailto:helloabysscorp@gmail.com">helloabysscorp@gmail.com</a></span></div></div>
+
+
+</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const questions=[
+{topic:"Seguridad ciudadana",text:"¿Cómo debería el próximo gobierno enfrentar la ola de crimen y extorsión?",options:[
+{text:"Abordar las causas sociales: pobreza, educación y empleo. Mano dura sin resolver la raíz no funciona.",dims:{security:8,economy:20,stateSize:12,social:15,sovereignty:15,corruption:10}},
+{text:"Fortalecer la policía con inteligencia y tecnología, reformar el sistema judicial para procesos más rápidos.",dims:{security:42,economy:50,stateSize:45,social:35,sovereignty:35,corruption:48}},
+{text:"Estado de emergencia, involucrar a las Fuerzas Armadas y endurecer penas drásticamente.",dims:{security:80,economy:55,stateSize:30,social:72,sovereignty:68,corruption:72}},
+{text:"Mano durísima: pena de muerte, cárceles en zonas inhóspitas, clasificar al crimen organizado como terrorismo.",dims:{security:98,economy:60,stateSize:38,social:88,sovereignty:92,corruption:92}}]},
+{topic:"Economía y mercado",text:"¿Cuál es el mejor modelo económico para que el Perú crezca y genere empleo?",options:[
+{text:"El Estado debe controlar sectores estratégicos (minería, energía, agua) y redistribuir la riqueza.",dims:{security:35,economy:5,stateSize:5,social:28,sovereignty:48,corruption:25}},
+{text:"Economía mixta: inversión privada con regulación fuerte y programas sociales amplios.",dims:{security:35,economy:30,stateSize:22,social:25,sovereignty:30,corruption:30}},
+{text:"Atraer inversión extranjera y privada con reglas claras, impuestos moderados y regulación básica.",dims:{security:45,economy:72,stateSize:68,social:48,sovereignty:42,corruption:48}},
+{text:"Libre mercado total: reducir el Estado al mínimo, privatizar empresas públicas y eliminar trabas burocráticas.",dims:{security:48,economy:97,stateSize:95,social:62,sovereignty:48,corruption:52}}]},
+{topic:"Corrupción",text:"¿Qué hacer para combatir la corrupción en el Estado peruano?",options:[
+{text:"Fortalecer la fiscalía, transparencia presupuestal y participación ciudadana. Las instituciones deben funcionar.",dims:{security:25,economy:38,stateSize:28,social:20,sovereignty:18,corruption:10}},
+{text:"Crear un consejo ciudadano con poder de destitución y evaluar a todos los jueces y fiscales cada año.",dims:{security:55,economy:45,stateSize:42,social:48,sovereignty:58,corruption:58}},
+{text:"Reducir el tamaño del Estado drásticamente. Menos burocracia = menos oportunidades para robar.",dims:{security:48,economy:90,stateSize:92,social:52,sovereignty:42,corruption:62}},
+{text:"Sanciones extremas: cadena perpetua para funcionarios corruptos, muerte civil, inhabilitación de por vida.",dims:{security:88,economy:52,stateSize:42,social:78,sovereignty:72,corruption:98}}]},
+{topic:"Migración",text:"¿Cuál debería ser la política migratoria del Perú?",options:[
+{text:"Perú debe ser solidario. Abrir las puertas a quienes huyen de crisis, con integración social y laboral.",dims:{security:8,economy:28,stateSize:18,social:5,sovereignty:5,corruption:18}},
+{text:"Regular mejor la migración: exigir documentos, pero ofrecer vías legales de acceso y trabajo formal.",dims:{security:32,economy:42,stateSize:38,social:30,sovereignty:30,corruption:32}},
+{text:"Controlar estrictamente las fronteras, deportar ilegales y priorizar el empleo para peruanos.",dims:{security:78,economy:55,stateSize:48,social:75,sovereignty:80,corruption:55}},
+{text:"Cerrar fronteras a toda migración ilegal, expulsar extranjeros con antecedentes y militarizar zonas fronterizas.",dims:{security:96,economy:58,stateSize:42,social:92,sovereignty:96,corruption:58}}]},
+{topic:"Rol del Estado",text:"¿Qué tan grande y presente debería ser el Estado en la vida de los peruanos?",options:[
+{text:"Un Estado fuerte que garantice salud, educación, vivienda y protección social universal para todos.",dims:{security:28,economy:8,stateSize:3,social:18,sovereignty:28,corruption:18}},
+{text:"Un Estado presente pero eficiente: que regule, proteja y promueva sin ahogar al sector privado.",dims:{security:38,economy:40,stateSize:32,social:32,sovereignty:38,corruption:38}},
+{text:"Reducir ministerios a la mitad, eliminar organismos ineficientes y auditar cada sol del gasto público.",dims:{security:58,economy:78,stateSize:82,social:58,sovereignty:55,corruption:75}},
+{text:"Estado mínimo: solo seguridad, justicia e infraestructura. Todo lo demás, al sector privado.",dims:{security:52,economy:97,stateSize:98,social:58,sovereignty:48,corruption:48}}]},
+{topic:"Educación",text:"¿Qué necesita el sistema educativo peruano?",options:[
+{text:"Más presupuesto, mejor sueldo para profesores y educación intercultural e inclusiva.",dims:{security:22,economy:12,stateSize:8,social:5,sovereignty:18,corruption:15}},
+{text:"Enfoque técnico y competitivo: STEM, idiomas, habilidades digitales. Cerrar universidades de baja calidad.",dims:{security:42,economy:65,stateSize:55,social:38,sovereignty:38,corruption:55}},
+{text:"Educación privada y vouchers. Que los padres elijan dónde estudian sus hijos y las escuelas compitan.",dims:{security:42,economy:92,stateSize:88,social:52,sovereignty:38,corruption:42}},
+{text:"Rescatar valores patrióticos y cívicos, eliminar la ideología de género e invertir en institutos técnicos.",dims:{security:55,economy:48,stateSize:42,social:95,sovereignty:72,corruption:48}}]},
+{topic:"Organismos internacionales",text:"¿Qué debería hacer el Perú con la Corte IDH y los organismos internacionales?",options:[
+{text:"Cumplir y fortalecer los compromisos internacionales. Son una garantía para los derechos humanos de todos.",dims:{security:12,economy:38,stateSize:32,social:8,sovereignty:3,corruption:22}},
+{text:"Mantener la membresía pero renegociar condiciones que limiten la soberanía del país.",dims:{security:38,economy:48,stateSize:48,social:42,sovereignty:48,corruption:38}},
+{text:"Retirarse de la Corte IDH. El Perú debe tomar sus propias decisiones sin injerencia externa.",dims:{security:75,economy:55,stateSize:52,social:72,sovereignty:90,corruption:62}},
+{text:"Salir de todos los organismos que impidan aplicar pena de muerte y mano dura contra el crimen.",dims:{security:96,economy:56,stateSize:48,social:90,sovereignty:98,corruption:78}}]},
+{topic:"Programas sociales",text:"¿Cómo deberían funcionar los programas sociales en el Perú?",options:[
+{text:"Ampliarlos: más bonos, alimentación gratuita y protección para los más vulnerables sin condiciones.",dims:{security:18,economy:3,stateSize:3,social:12,sovereignty:22,corruption:12}},
+{text:"Mantenerlos con condicionalidades: salud, educación y empadronamiento a cambio del beneficio.",dims:{security:32,economy:32,stateSize:28,social:28,sovereignty:32,corruption:32}},
+{text:"Apoyo limitado y temporal. Priorizar niños y ancianos, evitar el asistencialismo que desincentiva el trabajo.",dims:{security:48,economy:70,stateSize:68,social:60,sovereignty:42,corruption:48}},
+{text:"Eliminar la mayoría. El empleo y la inversión privada son la verdadera solución a la pobreza, no los bonos.",dims:{security:48,economy:96,stateSize:94,social:65,sovereignty:42,corruption:42}}]},
+{topic:"Minería y recursos naturales",text:"¿Qué debería hacer el Perú con la minería y sus recursos naturales?",options:[
+{text:"Nacionalizar la minería. Los recursos son del pueblo y las ganancias deben quedarse en el país.",dims:{security:32,economy:3,stateSize:3,social:32,sovereignty:58,corruption:28}},
+{text:"Permitir la minería con regulación ambiental estricta, consulta previa y canon justo para las regiones.",dims:{security:32,economy:35,stateSize:28,social:22,sovereignty:32,corruption:32}},
+{text:"Promover la gran minería formal como motor económico y erradicar totalmente la minería ilegal.",dims:{security:70,economy:75,stateSize:55,social:48,sovereignty:48,corruption:68}},
+{text:"Destrabar todos los proyectos paralizados, reducir requisitos ambientales y atraer inversión masiva.",dims:{security:48,economy:96,stateSize:82,social:52,sovereignty:38,corruption:42}}]},
+{topic:"Aborto y derechos reproductivos",text:"¿Cuál debería ser la posición del Estado peruano sobre el aborto?",options:[
+{text:"Legalizar el aborto libre hasta las 14 semanas. Es un derecho de la mujer decidir sobre su cuerpo.",dims:{security:22,economy:38,stateSize:32,social:2,sovereignty:18,corruption:22}},
+{text:"Permitirlo solo en casos de violación, malformación grave o riesgo de vida de la madre.",dims:{security:32,economy:42,stateSize:38,social:28,sovereignty:32,corruption:28}},
+{text:"Mantener la ley actual: solo es legal cuando la vida de la madre está en peligro. No ampliar causales.",dims:{security:48,economy:52,stateSize:48,social:75,sovereignty:55,corruption:42}},
+{text:"Prohibirlo completamente. La vida se protege desde la concepción, sin excepciones.",dims:{security:52,economy:48,stateSize:38,social:98,sovereignty:68,corruption:48}}]}
+];
+
+// 35 candidates with classification and JNE plan PDF links
+const candidates=[
+{name:"Vladimir Cerrón",party:"Perú Libre",cls:"Izquierda radical",plan:"https://mpesije.jne.gob.pe/docs/b2d25860-484e-4226-bd13-a57fb83c59cb.pdf"},
+{name:"Roberto Sánchez",party:"Juntos por el Perú",cls:"Izquierda",plan:"https://mpesije.jne.gob.pe/docs/3dd0e649-061c-4f31-8c3f-7a0836b58bde.pdf"},
+{name:"Ronald Atencio",party:"Venceremos",cls:"Izquierda",plan:"https://mpesije.jne.gob.pe/docs/9984addc-e998-43b1-920f-1178d4d973aa.pdf"},
+{name:"Álex Gonzales",party:"Democracia Directa",cls:"Izquierda",plan:"https://mpesije.jne.gob.pe/docs/3f2a939b-edf2-4505-b709-df775a5e0038.pdf"},
+{name:"Armando Massé",party:"Democrático Federal",cls:"Centro-izquierda",plan:null},
+{name:"Yonhy Lescano",party:"Cooperación Popular",cls:"Centro-izquierda",plan:"https://mpesije.jne.gob.pe/docs/582e0d55-19ee-4a7f-85ef-c254be5bada6.pdf"},
+{name:"Rosario Fernández",party:"Un Camino Diferente",cls:"Centro-izquierda",plan:"https://mpesije.jne.gob.pe/docs/de662f06-21d5-4523-a3ec-4fcbacabe16c.pdf"},
+{name:"Mario Vizcarra",party:"Perú Primero",cls:"Centro-izquierda",plan:"https://mpesije.jne.gob.pe/docs/f9624874-7cf6-4737-8db3-b73707c98e70.pdf"},
+{name:"Mesías Guevara",party:"Partido Morado",cls:"Centro-izquierda",plan:"https://mpesije.jne.gob.pe/docs/6eb5d4b8-bd18-4cf0-ae0e-e250ca085f5f.pdf"},
+{name:"Alfonso López Chau",party:"Ahora Nación",cls:"Centro-izquierda",plan:"https://mpesije.jne.gob.pe/docs/7d70c5e1-2246-42e8-90c2-372aa1cf7f52.pdf"},
+{name:"Jorge Nieto",party:"Buen Gobierno",cls:"Centro",plan:"https://mpesije.jne.gob.pe/docs/19bde703-f7f4-4715-92f3-b82e19bbe651.pdf"},
+{name:"Marisol Pérez Tello",party:"Primero la Gente",cls:"Centro",plan:null},
+{name:"Enrique Valderrama",party:"APRA",cls:"Centro",plan:"https://mpesije.jne.gob.pe/docs/4d581919-b090-43d4-89e4-e284fde587b7.pdf"},
+{name:"Ricardo Belmont",party:"Partido Cívico Obras",cls:"Centro",plan:"https://mpesije.jne.gob.pe/docs/5643db28-6dbd-4d35-b79e-30d20d3bed85.pdf"},
+{name:"George Forsyth",party:"Somos Perú",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/1334ac30-c28e-42a5-8fc5-79a4638ccd2a.pdf"},
+{name:"Carlos Álvarez",party:"País para Todos",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/76291ee3-eba2-4c88-adef-2530f2d70bb8.pdf"},
+{name:"Rafael Belaunde Llosa",party:"Libertad Popular",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/30bab146-a532-4d1b-87a7-e0f8078dc70b.pdf"},
+{name:"Roberto Chiabra",party:"Unidad Nacional",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/ae0c9ba2-6278-4ca7-b077-16ed2cc39e76.pdf"},
+{name:"Fiorella Molinelli",party:"Fuerza y Libertad",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/d4ab9fba-d366-4083-bbf5-63aa465114d9.pdf"},
+{name:"Carlos Jaico",party:"Perú Moderno",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/12de1a7b-008b-43c5-9159-c62c9b45eab1.pdf"},
+{name:"Carlos Espá",party:"Sí Creo",cls:"Centro-derecha",plan:"https://mpesije.jne.gob.pe/docs/e9d731a4-a79f-42e0-9ff7-29f6abe2bd3f.pdf"},
+{name:"César Acuña",party:"Alianza para el Progreso",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/72576403-804a-4f28-85d3-bf4c7e648667.pdf"},
+{name:"José Luna",party:"Podemos Perú",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/67b637b0-e2f7-47cc-8b23-fa16be709cc2.pdf"},
+{name:"José Williams",party:"Avanza País",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/5857261c-789e-4599-ac05-4531654b10b4.pdf"},
+{name:"Charlie Carrasco",party:"Demócrata Unido",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/2e5235de-e828-45f0-92cc-017a830abc33.pdf"},
+{name:"Álvaro Paz de la Barra",party:"Fe en el Perú",cls:"Derecha dura",plan:null},
+{name:"Fernando Olivera",party:"Frente de la Esperanza",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/d656b83f-3177-4053-a381-0f36ec99490a.pdf"},
+{name:"Francisco Diez-Canseco",party:"Perú Acción",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/f4e5c2c2-b0df-4033-adda-6617af774154.pdf"},
+{name:"Antonio Ortiz",party:"Salvemos al Perú",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/40877746-e670-42d3-840b-cdf683f46355.pdf"},
+{name:"Walter Chirinos",party:"PRIN",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/3b89548c-81fa-479d-9ff9-2b7011fec7d2.pdf"},
+{name:"Paul Jaimes",party:"Progresemos",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/b2f303a2-1e0d-4933-9d5f-04682a3710b0.pdf"},
+{name:"Herbert Caller",party:"Patriótico del Perú",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/6de519cb-bb4d-4319-a11b-be65d4438f4f.pdf"},
+{name:"Wolfgang Mario Grozo Costa",party:"Integridad Democrática",cls:"Derecha dura",plan:"https://mpesije.jne.gob.pe/docs/ee89ac99-516b-4665-9297-413a0cf104de.pdf"},
+{name:"Keiko Fujimori",party:"Fuerza Popular",cls:"Extrema derecha",plan:"https://mpesije.jne.gob.pe/docs/da4b943d-4344-4743-9362-a11ccf3054cb.pdf"},
+{name:"Rafael López Aliaga",party:"Renovación Popular",cls:"Extrema derecha",plan:"https://mpesije.jne.gob.pe/docs/2096b44a-f3b6-4c81-b03d-94fbfc9ac762.pdf"}
+];
+
+const profileMap={
+  "Izquierda radical":{range:[0,12],desc:"Priorizas un Estado máximo, nacionalización de sectores estratégicos, redistribución radical de la riqueza y ampliación total de derechos sociales."},
+  "Izquierda":{range:[12,22],desc:"Priorizas un Estado fuerte y protector, regulación económica activa, ampliación de derechos sociales y cooperación internacional."},
+  "Centro-izquierda":{range:[22,35],desc:"Valoras el rol social del Estado, programas sociales con regulación, derechos progresistas y apertura al diálogo internacional."},
+  "Centro":{range:[35,48],desc:"Buscas equilibrio entre mercado y Estado, reforma institucional, modernización y regulación moderada."},
+  "Centro-derecha":{range:[48,60],desc:"Valoras inversión privada, seguridad firme, Estado eficiente con gasto responsable y posiciones moderadamente conservadoras."},
+  "Derecha dura":{range:[60,78],desc:"Priorizas libre mercado, seguridad enérgica, reducción del Estado, control migratorio estricto y valores conservadores."},
+  "Extrema derecha":{range:[78,100],desc:"Posiciones extremas: pena de muerte, Estado ultra-mínimo, rechazo total a organismos internacionales, ultra-conservador."}
+};
+
+function getProfile(avg){
+  for(const[label,data] of Object.entries(profileMap)){
+    if(avg>=data.range[0]&&avg<data.range[1]) return{label,desc:data.desc};
+  }
+  return{label:"Extrema derecha",desc:profileMap["Extrema derecha"].desc};
+}
+
+// Shuffle array (Fisher-Yates)
+function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+
+let currentQ=0,answers=[];
+
+function startQuiz(){
+  currentQ=0;answers=[];
+  document.getElementById('intro-screen').classList.remove('active');
+  document.getElementById('quiz-screen').classList.add('active');
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=questions[currentQ];
+  const pct=Math.round((currentQ/questions.length)*100);
+  document.getElementById('progress-fill').style.width=pct+'%';
+  document.getElementById('progress-label').textContent=`Pregunta ${currentQ+1} de ${questions.length}`;
+  document.getElementById('progress-pct').textContent=pct+'%';
+  const keys=['A','B','C','D'];
+  document.getElementById('question-container').innerHTML=`
+    <div class="question-card">
+      <div class="question-number">Pregunta ${currentQ+1}</div>
+      <div class="question-topic">${q.topic}</div>
+      <div class="question-text">${q.text}</div>
+      <div class="options">${q.options.map((o,i)=>`
+        <button class="option-btn" onclick="selectOption(${i})">
+          <span class="opt-key">${keys[i]}</span><span>${o.text}</span>
+        </button>`).join('')}
+      </div>
+    </div>`;
+}
+
+function selectOption(idx){
+  document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
+  document.querySelectorAll('.option-btn')[idx].classList.add('selected');
+  answers.push(questions[currentQ].options[idx].dims);
+  setTimeout(()=>{
+    currentQ++;
+    if(currentQ<questions.length){renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}
+    else showResults();
+  },400);
+}
+
+function showResults(){
+  document.getElementById('quiz-screen').classList.remove('active');
+  document.getElementById('results-screen').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  const dimKeys=['security','economy','stateSize','social','sovereignty','corruption'];
+  const dims={};
+  dimKeys.forEach(k=>dims[k]=0);
+  answers.forEach(a=>{dimKeys.forEach(k=>dims[k]+=a[k])});
+  dimKeys.forEach(k=>dims[k]=Math.round(dims[k]/answers.length));
+
+  const avg=Math.round(dimKeys.reduce((s,k)=>s+dims[k],0)/dimKeys.length);
+  const profile=getProfile(avg);
+
+  document.getElementById('profile-label').textContent=profile.label;
+  document.getElementById('profile-desc').textContent=profile.desc;
+
+  setTimeout(()=>{
+    document.getElementById('spectrum-dot').style.left=Math.max(5,Math.min(95,avg))+'%';
+  },200);
+
+  const dimLabels={
+    security:{name:"Seguridad",color:"var(--derecha)"},
+    economy:{name:"Economía",color:"var(--orange)"},
+    stateSize:{name:"Tamaño Estado",color:"var(--centro)"},
+    social:{name:"Social/Cultural",color:"var(--accent2)"},
+    sovereignty:{name:"Soberanía",color:"var(--accent)"},
+    corruption:{name:"Anticorrupción",color:"#E85D75"}
+  };
+
+  let dimsHtml='';
+  dimKeys.forEach(k=>{
+    const d=dimLabels[k];
+    dimsHtml+=`<div class="dim-row">
+      <div class="dim-label">${d.name}</div>
+      <div class="dim-bar-bg"><div class="dim-bar-fill" style="width:0%;background:${d.color}" data-target="${dims[k]}"></div></div>
+      <div class="dim-val">${dims[k]}%</div>
+    </div>`;
+  });
+  document.getElementById('dims-grid').innerHTML=dimsHtml;
+  setTimeout(()=>{document.querySelectorAll('.dim-bar-fill').forEach(el=>{el.style.width=el.dataset.target+'%'})},300);
+
+  // Build candidate list for user's classification
+  const svgIcon='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>';
+
+  const matched=shuffle(candidates.filter(c=>c.cls===profile.label));
+
+  let html=`<div class="cand-section">
+    <div class="cand-section-title">Candidatos de ${profile.label} (${matched.length})</div>`;
+
+  if(matched.length===0){
+    html+=`<p style="color:var(--text-dim);font-size:14px">No hay candidatos registrados en esta clasificación.</p>`;
+  } else {
+    html+=`<table class="cand-table"><thead><tr><th>Candidato</th><th>Partido</th><th>Plan de Gobierno</th></tr></thead><tbody>`;
+    matched.forEach(c=>{
+      const planCell=c.plan
+        ?`<a class="plan-link" href="${c.plan}" target="_blank" rel="noopener">${svgIcon} Ver PDF</a>`
+        :`<span class="plan-na">No disponible</span>`;
+      html+=`<tr><td class="cand-name-cell">${c.name}</td><td class="cand-party-cell">${c.party}</td><td>${planCell}</td></tr>`;
+    });
+    html+=`</tbody></table>`;
+  }
+  html+=`</div>`;
+
+  document.getElementById('candidates-section').innerHTML=html;
+}
+
+function shareResults(){
+  const label=document.getElementById('profile-label').textContent;
+  const text=`Mi perfil ideológico para las Elecciones Perú 2026: ${label}. ¿Cuál es el tuyo? 🗳️`;
+  if(navigator.share){navigator.share({title:'Tu Match Político — Perú 2026',text,url:window.location.href})}
+  else{navigator.clipboard.writeText(text+' '+window.location.href).then(()=>{
+    const btn=document.querySelector('.btn-primary');const o=btn.textContent;btn.textContent='¡Enlace copiado!';setTimeout(()=>btn.textContent=o,2000);
+  })}
+}
+
+function restartQuiz(){
+  document.
