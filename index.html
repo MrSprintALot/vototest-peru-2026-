@@ -80,17 +80,16 @@ body::after{content:'';position:fixed;inset:0;opacity:.025;background:url("data:
 .btn-secondary:hover{border-color:var(--accent)}
 .disclaimer-footer{text-align:center;margin-top:40px;font-size:11px;color:var(--text-dim);opacity:.5;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto}
 .disclaimer-footer a{color:var(--accent);text-decoration:none}
-@keyframes introIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:600px){.cand-table td,.cand-table th{padding:8px 6px}.dim-label{width:100px;font-size:11px}}
-
 .brand-badge{display:flex;align-items:center;justify-content:center;margin-top:28px;opacity:.5;transition:opacity .3s}
 .brand-badge:hover{opacity:.9}
 .brand-badge-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
 .brand-badge img{height:32px;width:auto}
 .brand-badge-contact{font-size:11px;color:var(--text-dim);letter-spacing:.3px}
-.brand-badge-contact a{color:var(--accent);text-decoration:none;transition:opacity .2s}
+.brand-badge-contact a{color:var(--accent);text-decoration:none;cursor:pointer;transition:opacity .2s}
 .brand-badge-contact a:hover{opacity:.7}
+@keyframes introIn{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.cand-table td,.cand-table th{padding:8px 6px}.dim-label{width:100px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -109,8 +108,7 @@ body::after{content:'';position:fixed;inset:0;opacity:.025;background:url("data:
     </div>
     <button class="btn-start" onclick="startQuiz()">Comenzar test</button>
     <div class="intro-disclaimer">Este test es informativo y no constituye una recomendación de voto. Las clasificaciones son aproximaciones basadas en propuestas públicas y planes de gobierno registrados ante el JNE.</div>
-    <div class="brand-badge"><div class="brand-badge-inner"><img src="data:image/png;base64,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" alt="Abyss Corp"><span class="brand-badge-contact">Contact: <a href="mailto:helloabysscorp@gmail.com">helloabysscorp@gmail.com</a></span></div></div>
-    
+    <div class="brand-badge" id="brand-intro"></div>
   </div>
 </div>
 
@@ -140,12 +138,26 @@ body::after{content:'';position:fixed;inset:0;opacity:.025;background:url("data:
     <button class="btn-action btn-secondary" onclick="restartQuiz()">Volver a empezar</button>
   </div>
   <div class="disclaimer-footer">Este test es un ejercicio informativo. Las clasificaciones son aproximaciones y no representan un respaldo a ningún candidato. Infórmate: <a href="https://votoinformado.jne.gob.pe/presidente-vicepresidentes" target="_blank">votoinformado.jne.gob.pe</a></div>
-  <div class="brand-badge"><div class="brand-badge-inner"><img src="data:image/png;base64,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" alt="Abyss Corp"><span class="brand-badge-contact">Contact: <a href="mailto:helloabysscorp@gmail.com">helloabysscorp@gmail.com</a></span></div></div>
-
+  <div class="brand-badge" id="brand-results"></div>
+</div>
 
 </div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-const questions=[
+<script>
+// Email built in JS to avoid Cloudflare email obfuscation
+var _e=['hello','abyss','corp','gm','ail','.com'].join('');_e=_e.replace('hello','hello');var _em='m'+'a'+'i'+'l'+'t'+'o'+':'+_e;
+var _logoSrc="data:image/png;base64,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";
+
+// Render brand badges
+function renderBadges(){
+  var h='<div class="brand-badge-inner"><img src="'+_logoSrc+'" alt="Abyss Corp"><span class="brand-badge-contact">Contact: <a onclick="window.location.href=_em;return false;" href="#">'+_e+'</a></span></div>';
+  var b1=document.getElementById('brand-intro');
+  var b2=document.getElementById('brand-results');
+  if(b1)b1.innerHTML=h;
+  if(b2)b2.innerHTML=h;
+}
+document.addEventListener('DOMContentLoaded',renderBadges);
+
+var questions=[
 {topic:"Seguridad ciudadana",text:"¿Cómo debería el próximo gobierno enfrentar la ola de crimen y extorsión?",options:[
 {text:"Abordar las causas sociales: pobreza, educación y empleo. Mano dura sin resolver la raíz no funciona.",dims:{security:8,economy:20,stateSize:12,social:15,sovereignty:15,corruption:10}},
 {text:"Fortalecer la policía con inteligencia y tecnología, reformar el sistema judicial para procesos más rápidos.",dims:{security:42,economy:50,stateSize:45,social:35,sovereignty:35,corruption:48}},
@@ -198,8 +210,7 @@ const questions=[
 {text:"Prohibirlo completamente. La vida se protege desde la concepción, sin excepciones.",dims:{security:52,economy:48,stateSize:38,social:98,sovereignty:68,corruption:48}}]}
 ];
 
-// 35 candidates with classification and JNE plan PDF links
-const candidates=[
+var candidates=[
 {name:"Vladimir Cerrón",party:"Perú Libre",cls:"Izquierda radical",plan:"https://mpesije.jne.gob.pe/docs/b2d25860-484e-4226-bd13-a57fb83c59cb.pdf"},
 {name:"Roberto Sánchez",party:"Juntos por el Perú",cls:"Izquierda",plan:"https://mpesije.jne.gob.pe/docs/3dd0e649-061c-4f31-8c3f-7a0836b58bde.pdf"},
 {name:"Ronald Atencio",party:"Venceremos",cls:"Izquierda",plan:"https://mpesije.jne.gob.pe/docs/9984addc-e998-43b1-920f-1178d4d973aa.pdf"},
@@ -237,141 +248,120 @@ const candidates=[
 {name:"Rafael López Aliaga",party:"Renovación Popular",cls:"Extrema derecha",plan:"https://mpesije.jne.gob.pe/docs/2096b44a-f3b6-4c81-b03d-94fbfc9ac762.pdf"}
 ];
 
-const profileMap={
-  "Izquierda radical":{range:[0,12],desc:"Priorizas un Estado máximo, nacionalización de sectores estratégicos, redistribución radical de la riqueza y ampliación total de derechos sociales."},
-  "Izquierda":{range:[12,22],desc:"Priorizas un Estado fuerte y protector, regulación económica activa, ampliación de derechos sociales y cooperación internacional."},
-  "Centro-izquierda":{range:[22,35],desc:"Valoras el rol social del Estado, programas sociales con regulación, derechos progresistas y apertura al diálogo internacional."},
-  "Centro":{range:[35,48],desc:"Buscas equilibrio entre mercado y Estado, reforma institucional, modernización y regulación moderada."},
-  "Centro-derecha":{range:[48,60],desc:"Valoras inversión privada, seguridad firme, Estado eficiente con gasto responsable y posiciones moderadamente conservadoras."},
-  "Derecha dura":{range:[60,78],desc:"Priorizas libre mercado, seguridad enérgica, reducción del Estado, control migratorio estricto y valores conservadores."},
-  "Extrema derecha":{range:[78,100],desc:"Posiciones extremas: pena de muerte, Estado ultra-mínimo, rechazo total a organismos internacionales, ultra-conservador."}
+var profileMap={
+"Izquierda radical":{range:[0,12],desc:"Priorizas un Estado máximo, nacionalización de sectores estratégicos, redistribución radical de la riqueza y ampliación total de derechos sociales."},
+"Izquierda":{range:[12,22],desc:"Priorizas un Estado fuerte y protector, regulación económica activa, ampliación de derechos sociales y cooperación internacional."},
+"Centro-izquierda":{range:[22,35],desc:"Valoras el rol social del Estado, programas sociales con regulación, derechos progresistas y apertura al diálogo internacional."},
+"Centro":{range:[35,48],desc:"Buscas equilibrio entre mercado y Estado, reforma institucional, modernización y regulación moderada."},
+"Centro-derecha":{range:[48,60],desc:"Valoras inversión privada, seguridad firme, Estado eficiente con gasto responsable y posiciones moderadamente conservadoras."},
+"Derecha dura":{range:[60,78],desc:"Priorizas libre mercado, seguridad enérgica, reducción del Estado, control migratorio estricto y valores conservadores."},
+"Extrema derecha":{range:[78,100],desc:"Posiciones extremas: pena de muerte, Estado ultra-mínimo, rechazo total a organismos internacionales, ultra-conservador."}
 };
 
 function getProfile(avg){
-  for(const[label,data] of Object.entries(profileMap)){
-    if(avg>=data.range[0]&&avg<data.range[1]) return{label,desc:data.desc};
-  }
-  return{label:"Extrema derecha",desc:profileMap["Extrema derecha"].desc};
+for(var k in profileMap){if(avg>=profileMap[k].range[0]&&avg<profileMap[k].range[1])return{label:k,desc:profileMap[k].desc}}
+return{label:"Extrema derecha",desc:profileMap["Extrema derecha"].desc};
 }
 
-// Shuffle array (Fisher-Yates)
-function shuffle(arr){for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}return arr}
+function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
 
-let currentQ=0,answers=[];
+var currentQ=0,answers=[];
 
 function startQuiz(){
-  currentQ=0;answers=[];
-  document.getElementById('intro-screen').classList.remove('active');
-  document.getElementById('quiz-screen').classList.add('active');
-  renderQuestion();
+currentQ=0;answers=[];
+document.getElementById('intro-screen').classList.remove('active');
+document.getElementById('quiz-screen').classList.add('active');
+renderQuestion();
 }
 
 function renderQuestion(){
-  const q=questions[currentQ];
-  const pct=Math.round((currentQ/questions.length)*100);
-  document.getElementById('progress-fill').style.width=pct+'%';
-  document.getElementById('progress-label').textContent=`Pregunta ${currentQ+1} de ${questions.length}`;
-  document.getElementById('progress-pct').textContent=pct+'%';
-  const keys=['A','B','C','D'];
-  document.getElementById('question-container').innerHTML=`
-    <div class="question-card">
-      <div class="question-number">Pregunta ${currentQ+1}</div>
-      <div class="question-topic">${q.topic}</div>
-      <div class="question-text">${q.text}</div>
-      <div class="options">${q.options.map((o,i)=>`
-        <button class="option-btn" onclick="selectOption(${i})">
-          <span class="opt-key">${keys[i]}</span><span>${o.text}</span>
-        </button>`).join('')}
-      </div>
-    </div>`;
+var q=questions[currentQ];
+var pct=Math.round((currentQ/questions.length)*100);
+document.getElementById('progress-fill').style.width=pct+'%';
+document.getElementById('progress-label').textContent='Pregunta '+(currentQ+1)+' de '+questions.length;
+document.getElementById('progress-pct').textContent=pct+'%';
+var keys=['A','B','C','D'];
+var h='<div class="question-card"><div class="question-number">Pregunta '+(currentQ+1)+'</div><div class="question-topic">'+q.topic+'</div><div class="question-text">'+q.text+'</div><div class="options">';
+for(var i=0;i<q.options.length;i++){
+h+='<button class="option-btn" onclick="selectOption('+i+')"><span class="opt-key">'+keys[i]+'</span><span>'+q.options[i].text+'</span></button>';
+}
+h+='</div></div>';
+document.getElementById('question-container').innerHTML=h;
 }
 
 function selectOption(idx){
-  document.querySelectorAll('.option-btn').forEach(b=>b.classList.remove('selected'));
-  document.querySelectorAll('.option-btn')[idx].classList.add('selected');
-  answers.push(questions[currentQ].options[idx].dims);
-  setTimeout(()=>{
-    currentQ++;
-    if(currentQ<questions.length){renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}
-    else showResults();
-  },400);
+var btns=document.querySelectorAll('.option-btn');
+for(var i=0;i<btns.length;i++)btns[i].classList.remove('selected');
+btns[idx].classList.add('selected');
+answers.push(questions[currentQ].options[idx].dims);
+setTimeout(function(){
+currentQ++;
+if(currentQ<questions.length){renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}
+else showResults();
+},400);
 }
 
 function showResults(){
-  document.getElementById('quiz-screen').classList.remove('active');
-  document.getElementById('results-screen').classList.add('active');
-  window.scrollTo({top:0,behavior:'smooth'});
+document.getElementById('quiz-screen').classList.remove('active');
+document.getElementById('results-screen').classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
 
-  const dimKeys=['security','economy','stateSize','social','sovereignty','corruption'];
-  const dims={};
-  dimKeys.forEach(k=>dims[k]=0);
-  answers.forEach(a=>{dimKeys.forEach(k=>dims[k]+=a[k])});
-  dimKeys.forEach(k=>dims[k]=Math.round(dims[k]/answers.length));
+var dimKeys=['security','economy','stateSize','social','sovereignty','corruption'];
+var dims={};
+for(var i=0;i<dimKeys.length;i++)dims[dimKeys[i]]=0;
+for(var i=0;i<answers.length;i++){for(var j=0;j<dimKeys.length;j++)dims[dimKeys[j]]+=answers[i][dimKeys[j]]}
+for(var i=0;i<dimKeys.length;i++)dims[dimKeys[i]]=Math.round(dims[dimKeys[i]]/answers.length);
 
-  const avg=Math.round(dimKeys.reduce((s,k)=>s+dims[k],0)/dimKeys.length);
-  const profile=getProfile(avg);
+var total=0;for(var i=0;i<dimKeys.length;i++)total+=dims[dimKeys[i]];
+var avg=Math.round(total/dimKeys.length);
+var profile=getProfile(avg);
 
-  document.getElementById('profile-label').textContent=profile.label;
-  document.getElementById('profile-desc').textContent=profile.desc;
+document.getElementById('profile-label').textContent=profile.label;
+document.getElementById('profile-desc').textContent=profile.desc;
 
-  setTimeout(()=>{
-    document.getElementById('spectrum-dot').style.left=Math.max(5,Math.min(95,avg))+'%';
-  },200);
+setTimeout(function(){document.getElementById('spectrum-dot').style.left=Math.max(5,Math.min(95,avg))+'%'},200);
 
-  const dimLabels={
-    security:{name:"Seguridad",color:"var(--derecha)"},
-    economy:{name:"Economía",color:"var(--orange)"},
-    stateSize:{name:"Tamaño Estado",color:"var(--centro)"},
-    social:{name:"Social/Cultural",color:"var(--accent2)"},
-    sovereignty:{name:"Soberanía",color:"var(--accent)"},
-    corruption:{name:"Anticorrupción",color:"#E85D75"}
-  };
+var dimLabels={security:{name:"Seguridad",color:"var(--derecha)"},economy:{name:"Economía",color:"var(--orange)"},stateSize:{name:"Tamaño Estado",color:"var(--centro)"},social:{name:"Social/Cultural",color:"var(--accent2)"},sovereignty:{name:"Soberanía",color:"var(--accent)"},corruption:{name:"Anticorrupción",color:"#E85D75"}};
 
-  let dimsHtml='';
-  dimKeys.forEach(k=>{
-    const d=dimLabels[k];
-    dimsHtml+=`<div class="dim-row">
-      <div class="dim-label">${d.name}</div>
-      <div class="dim-bar-bg"><div class="dim-bar-fill" style="width:0%;background:${d.color}" data-target="${dims[k]}"></div></div>
-      <div class="dim-val">${dims[k]}%</div>
-    </div>`;
-  });
-  document.getElementById('dims-grid').innerHTML=dimsHtml;
-  setTimeout(()=>{document.querySelectorAll('.dim-bar-fill').forEach(el=>{el.style.width=el.dataset.target+'%'})},300);
+var dh='';
+for(var i=0;i<dimKeys.length;i++){
+var k=dimKeys[i],d=dimLabels[k];
+dh+='<div class="dim-row"><div class="dim-label">'+d.name+'</div><div class="dim-bar-bg"><div class="dim-bar-fill" style="width:0%;background:'+d.color+'" data-target="'+dims[k]+'"></div></div><div class="dim-val">'+dims[k]+'%</div></div>';
+}
+document.getElementById('dims-grid').innerHTML=dh;
+setTimeout(function(){var fills=document.querySelectorAll('.dim-bar-fill');for(var i=0;i<fills.length;i++)fills[i].style.width=fills[i].getAttribute('data-target')+'%'},300);
 
-  // Build candidate list for user's classification
-  const svgIcon='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>';
-
-  const matched=shuffle(candidates.filter(c=>c.cls===profile.label));
-
-  let html=`<div class="cand-section">
-    <div class="cand-section-title">Candidatos de ${profile.label} (${matched.length})</div>`;
-
-  if(matched.length===0){
-    html+=`<p style="color:var(--text-dim);font-size:14px">No hay candidatos registrados en esta clasificación.</p>`;
-  } else {
-    html+=`<table class="cand-table"><thead><tr><th>Candidato</th><th>Partido</th><th>Plan de Gobierno</th></tr></thead><tbody>`;
-    matched.forEach(c=>{
-      const planCell=c.plan
-        ?`<a class="plan-link" href="${c.plan}" target="_blank" rel="noopener">${svgIcon} Ver PDF</a>`
-        :`<span class="plan-na">No disponible</span>`;
-      html+=`<tr><td class="cand-name-cell">${c.name}</td><td class="cand-party-cell">${c.party}</td><td>${planCell}</td></tr>`;
-    });
-    html+=`</tbody></table>`;
-  }
-  html+=`</div>`;
-
-  document.getElementById('candidates-section').innerHTML=html;
+var svgIcon='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>';
+var matched=shuffle(candidates.filter(function(c){return c.cls===profile.label}));
+var ch='<div class="cand-section"><div class="cand-section-title">Candidatos de '+profile.label+' ('+matched.length+')</div>';
+if(matched.length===0){ch+='<p style="color:var(--text-dim);font-size:14px">No hay candidatos registrados en esta clasificación.</p>'}
+else{
+ch+='<table class="cand-table"><thead><tr><th>Candidato</th><th>Partido</th><th>Plan de Gobierno</th></tr></thead><tbody>';
+for(var i=0;i<matched.length;i++){
+var c=matched[i];
+var pc=c.plan?'<a class="plan-link" href="'+c.plan+'" target="_blank" rel="noopener">'+svgIcon+' Ver PDF</a>':'<span class="plan-na">No disponible</span>';
+ch+='<tr><td class="cand-name-cell">'+c.name+'</td><td class="cand-party-cell">'+c.party+'</td><td>'+pc+'</td></tr>';
+}
+ch+='</tbody></table>';
+}
+ch+='</div>';
+document.getElementById('candidates-section').innerHTML=ch;
 }
 
 function shareResults(){
-  const label=document.getElementById('profile-label').textContent;
-  const text=`Mi perfil ideológico para las Elecciones Perú 2026: ${label}. ¿Cuál es el tuyo? 🗳️`;
-  if(navigator.share){navigator.share({title:'Tu Match Político — Perú 2026',text,url:window.location.href})}
-  else{navigator.clipboard.writeText(text+' '+window.location.href).then(()=>{
-    const btn=document.querySelector('.btn-primary');const o=btn.textContent;btn.textContent='¡Enlace copiado!';setTimeout(()=>btn.textContent=o,2000);
-  })}
+var label=document.getElementById('profile-label').textContent;
+var text='Mi perfil ideológico para las Elecciones Perú 2026: '+label+'. ¿Cuál es el tuyo? 🗳️';
+if(navigator.share){navigator.share({title:'Tu Match Político — Perú 2026',text:text,url:window.location.href})}
+else{navigator.clipboard.writeText(text+' '+window.location.href).then(function(){
+var btn=document.querySelector('.btn-primary');var o=btn.textContent;btn.textContent='¡Enlace copiado!';setTimeout(function(){btn.textContent=o},2000);
+})}
 }
 
 function restartQuiz(){
-  document.
+document.getElementById('results-screen').classList.remove('active');
+document.getElementById('intro-screen').classList.add('active');
+window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
